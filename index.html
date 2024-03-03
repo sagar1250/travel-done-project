@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Booking Form</title>
+  <link rel="stylesheet" href="style.css"> <!-- Link to your styles.css -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+
+/* styles.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-image: linear-gradient(to bottom, #1995AD, #A1D6E2, #F1F1F2);
+}
+
+.container {
+  width: 60%;
+  margin: 5% auto;
+  padding: 20px;
+  background-color: #F1F1F2; /* Fallback color */
+  background-image: linear-gradient(to bottom, #F1F1F2, #A1D6E2); /* Gradient background */
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow for depth */
+}
+
+h1 {
+  color: #136c80; /* Darker color for the heading */
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Change the font to Roboto */
+  font-weight: bold; /* Ensure bold font weight */
+}
+
+.form-control,
+.custom-select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff; /* Ensure input fields have a white background for better contrast */
+}
+
+.custom-select {
+  background-image: linear-gradient(to bottom, #fff, #F1F1F2); /* Gradient background for select */
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  background-color: #1995AD; /* Primary button color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #136c80; /* Darken the color on hover */
+}
+
+.invalid-feedback {
+  color: red;
+}
+
+.valid-feedback {
+  color: green;
+}
+
+</style> 
+</head>
+<body>
+  <div class="container">
+<h1 class="text-center mb-4">Travel Booking Form</h1>
+<form action="/submit-booking" method="POST" onsubmit="return validateForm()" class="needs-validation" novalidate>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="firstName">First Name:</label>
+      <input type="text" class="form-control" id="firstName" name="firstName" required>
+      <div class="invalid-feedback">
+        Please enter your first name.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="lastName">Last Name:</label>
+      <input type="text" class="form-control" id="lastName" name="lastName" required>
+      <div class="invalid-feedback">
+        Please enter your last name.
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="mobileNumber">Mobile Number:</label>
+      <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" required pattern="[0-9]{10}">
+      <div class="invalid-feedback">
+        Please enter a valid 10-digit mobile number.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="gender">Gender:</label>
+      <select class="custom-select" id="gender" name="gender" required>
+        <option value="">Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <div class="invalid-feedback">
+        Please select your gender.
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="fromLocation">From Location:</label>
+      <input type="text" class="form-control" id="fromLocation" name="fromLocation" required pattern="[a-zA-Z\s]+">
+      <div class="invalid-feedback">
+        Please enter a valid location.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="destinationLocation">Destination Location:</label>
+      <input type="text" class="form-control" id="destinationLocation" name="destinationLocation" required pattern="[a-zA-Z\s]+">
+      <div class="invalid-feedback">
+        Please enter a valid location.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="dateOfJourney">Date of Journey:</label>
+    <input type="text" class="form-control" id="dateOfJourney" name="dateOfJourney" required pattern="\d{4}-\d{2}-\d{2}">
+    <div class="invalid-feedback">
+      Please enter a valid date (YYYY-MM-DD).
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="numberOfPassengers">Number of Passengers:</label>
+      <input type="number" class="form-control" id="numberOfPassengers" name="numberOfPassengers" required min="1">
+      <div class="invalid-feedback">
+        Number of passengers must be at least 1.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="price">Price:</label>
+      <input type="number" class="form-control" id="price" name="price" step="0.01" required min="0.01">
+      <div class="invalid-feedback">
+        Price must be greater than 0.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="pickupLocation">Pickup Location:</label>
+    <input type="text" class="form-control" id="pickupLocation" name="pickupLocation" required pattern="[a-zA-Z\s]+">
+    <div class="invalid-feedback">
+      Please enter a valid location.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="typeOfBus">Type of Bus:</label>
+    <select class="custom-select" id="typeOfBus" name="typeOfBus" required>
+      <option value="">Select type</option>
+      <option value="AC">AC</option>
+      <option value="Non-AC">Non-AC</option>
+    </select>
+    <div class="invalid-feedback">
+      Please select a type of bus.
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+  </div>
+<script>
+function validateForm() {
+  // Add your validation logic here
+}
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+</body>
+</html>

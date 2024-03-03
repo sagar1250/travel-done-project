@@ -1,0 +1,19 @@
+{
+  "name": "booking",
+  "version": "1.0.0",
+  "description": "Travel",
+  "main": "2",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "githubcom/sagar1250/TravelBooking"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3",
+    "mongodb": "^6.4.0"
+  }
+}

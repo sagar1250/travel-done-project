@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: booking-app
+  template:
+    metadata:
+      labels:
+        app: booking-app
+    spec:
+      containers:
+      - name: booking-app-container
+        image: sagar6028/travelbooking:latest
+        ports:
+          - containerPort: 3002
+        env:
+         - name: MONGODB_URI
+           value: "mongodb://projectfolder:27017/travelBooking"
+      - name: projectfolder
+        image: mongo:latest
+        ports:
+           - containerPort: 27017

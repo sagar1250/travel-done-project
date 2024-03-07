@@ -36,6 +36,7 @@ app.post('/submit-booking', async (req, res) => {
     const collection = db.collection(collectionName);
     await collection.insertOne(bookingData);
     console.log('Booking created successfully');
+    console.log('Booking Details:', bookingData);
 
     // Redirect to booking confirmation page
     res.redirect(`/booking-details.html?firstName=${bookingData.firstName}&fromLocation=${bookingData.fromLocation}&destinationLocation=${bookingData.destinationLocation}&dateOfJourney=${bookingData.dateOfJourney}&numberOfPassengers=${bookingData.numberOfPassengers}&price=${bookingData.price}&pickupLocation=${bookingData.pickupLocation}&typeOfBus=${bookingData.typeOfBus}`);
